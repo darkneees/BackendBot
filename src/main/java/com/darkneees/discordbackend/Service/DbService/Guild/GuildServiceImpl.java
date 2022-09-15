@@ -30,15 +30,14 @@ public class GuildServiceImpl implements GuildService {
     }
 
     private void UpdateMessages(GuildEntity guildEntity) {
-        guildEntity.ChangeCount();
+        guildEntity.UpdateCount();
         repository.save(guildEntity);
     }
 
 
     private void CreateMessages(Message message){
         GuildEntity entity = new GuildEntity(
-                message.getGuild().getId(),
-                message.getGuild().getName(),
+                message.getGuild().getIdLong(),
                 ZonedDateTime.from(message.getTimeCreated())
         );
         repository.save(entity);

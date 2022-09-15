@@ -18,15 +18,15 @@ public class BestChannelServiceImpl implements BestChannelService {
     }
 
     @Override
-    public Optional<BestChannelEntity> getBestChannelByIdAndGuildIdAndTime(long GuildId, long ChannelId, LocalDate date) {
-        return repository.getBestChannelEntitiesByGuildIdAndChannelIdAndTimeMessage(GuildId, ChannelId, date);
+    public Optional<BestChannelEntity> getBestChannelByIdAndGuildIdAndTime(long ChannelId, long GuildId, LocalDate date) {
+        return repository.getBestChannelEntitiesByChannelIdAndGuildIdAndTimeMessage(ChannelId, GuildId, date);
     }
 
     @Override
     public void ChangeCountMessages (Message message) {
         Optional<BestChannelEntity> optionalEntity = getBestChannelByIdAndGuildIdAndTime(
-                message.getGuild().getIdLong(),
                 message.getChannel().getIdLong(),
+                message.getGuild().getIdLong(),
                 message.getTimeCreated().toLocalDate()
         );
 
@@ -39,16 +39,15 @@ public class BestChannelServiceImpl implements BestChannelService {
     private void CreateChannel(Message message){
 
         BestChannelEntity entity = new BestChannelEntity(
-                message.getGuild().getIdLong(),
                 message.getChannel().getIdLong(),
-                message.getTimeCreated().toLocalDate()
+                message.getGuild().getIdLong(),
+                message.getTimeCreated().toZonedDateTime().toLocalDate()
         );
-        entity.ChangeCount();
         repository.save(entity);
     }
 
     private void UpdateChannel(BestChannelEntity entity){
-        entity.ChangeCount();
+        entity.UpdateCount();
         repository.save(entity);
     }
 

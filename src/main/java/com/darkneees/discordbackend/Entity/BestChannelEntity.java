@@ -14,22 +14,23 @@ public class BestChannelEntity {
     @Column(name = "ChannelId")
     private long channelId;
 
-    @Column(name = "GuildId")
+    @Column(name = "guildId")
     private long guildId;
 
     @Column(name = "time_message")
     private LocalDate timeMessage;
 
     @Column(name = "count")
-    private long count;
+    private int count;
 
     public BestChannelEntity() {
     }
 
-    public BestChannelEntity(long guildId, long channelId, LocalDate timeMessage) {
-        this.guildId = guildId;
+    public BestChannelEntity(long channelId, long guildId, LocalDate timeMessage) {
         this.channelId = channelId;
+        this.guildId = guildId;
         this.timeMessage = timeMessage;
+        ++count;
     }
 
     public long getChannelId() {
@@ -56,15 +57,15 @@ public class BestChannelEntity {
         this.timeMessage = timeMessage;
     }
 
-    public long getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(long count) {
+    public void setCount(int count) {
         this.count = count;
     }
 
-    public void ChangeCount(){
-        count = count + 1;
+    public void UpdateCount(){
+        ++count;
     }
 }

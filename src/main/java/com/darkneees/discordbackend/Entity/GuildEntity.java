@@ -12,40 +12,35 @@ public class GuildEntity {
 
     @Id
     @Column(name = "id")
-    private String id;
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "time")
-    private ZonedDateTime time;
-
+    private long id;
+    @Column(name = "time_message")
+    private ZonedDateTime timeMessage;
     @Column(name = "count")
     private int count;
 
     public GuildEntity() {
     }
 
-    public GuildEntity(String id, String name, ZonedDateTime time) {
+    public GuildEntity(long id, ZonedDateTime timeMessage) {
         this.id = id;
-        this.name = name;
-        this.time = time;
+        this.timeMessage = timeMessage;
+        ++count;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public ZonedDateTime getTimeMessage() {
+        return timeMessage;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTimeMessage(ZonedDateTime timeMessage) {
+        this.timeMessage = timeMessage;
     }
 
     public int getCount() {
@@ -56,15 +51,7 @@ public class GuildEntity {
         this.count = count;
     }
 
-    public ZonedDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(ZonedDateTime time) {
-        this.time = time;
-    }
-
-    public void ChangeCount(){
-        count = count + 1;
+    public void UpdateCount(){
+        ++count;
     }
 }

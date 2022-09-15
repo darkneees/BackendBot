@@ -17,27 +17,20 @@ public class BestMemberEntity {
     @Column(name = "GuildId")
     private long guildId;
 
-    @Column(name = "TimeMessage")
+    @Column(name = "time_message")
     private LocalDate timeMessage;
 
     @Column(name = "count")
-    private int count;
+    private long count;
 
     public BestMemberEntity() {
     }
 
-    public BestMemberEntity(long guildId, long userId, LocalDate timeMessage) {
-        this.guildId = guildId;
+    public BestMemberEntity(long userId, long guildId, LocalDate timeMessage) {
         this.userId = userId;
-        this.timeMessage = timeMessage;
-    }
-
-    public long getGuildId() {
-        return guildId;
-    }
-
-    public void setGuildId(long guildId) {
         this.guildId = guildId;
+        this.timeMessage = timeMessage;
+        ++count;
     }
 
     public long getUserId() {
@@ -56,25 +49,23 @@ public class BestMemberEntity {
         this.timeMessage = timeMessage;
     }
 
-    public int getCount() {
+    public void UpdateCount(){
+        ++count;
+    }
+
+    public long getGuildId() {
+        return guildId;
+    }
+
+    public void setGuildId(long guildId) {
+        this.guildId = guildId;
+    }
+
+    public long getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(long count) {
         this.count = count;
-    }
-
-    public void ChangeCount(){
-        count = count + 1;
-    }
-
-    @Override
-    public String toString() {
-        return "BestMemberEntity{" +
-                "guildId=" + guildId +
-                ", userId=" + userId +
-                ", timeMessage=" + timeMessage +
-                ", count=" + count +
-                '}';
     }
 }

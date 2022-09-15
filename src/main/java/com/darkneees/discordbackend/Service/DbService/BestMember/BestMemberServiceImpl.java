@@ -19,16 +19,16 @@ public class BestMemberServiceImpl implements BestMemberService {
 
 
     @Override
-    public Optional<BestMemberEntity> getBestMemberByIdAndGuildIdAndTime(long GuildId, long UserId, LocalDate date) {
-        return repository.getBestMemberEntitiesByGuildIdAndUserIdAndTimeMessage(GuildId, UserId, date);
+    public Optional<BestMemberEntity> getBestMemberByIdAndGuildIdAndTime(long UserId, long GuildId, LocalDate date) {
+        return repository.getBestMemberEntitiesByUserIdAndGuildIdAndTimeMessage(UserId, GuildId, date);
     }
 
     @Override
     public void ChangeCountMessages (Message message) {
 
         Optional<BestMemberEntity> optionalEntity = getBestMemberByIdAndGuildIdAndTime(
-                message.getGuild().getIdLong(),
                 message.getAuthor().getIdLong(),
+                message.getGuild().getIdLong(),
                 message.getTimeCreated().toLocalDate()
         );
 
@@ -42,16 +42,15 @@ public class BestMemberServiceImpl implements BestMemberService {
     private void CreateMember(Message message){
 
         BestMemberEntity entity = new BestMemberEntity(
-                message.getGuild().getIdLong(),
                 message.getAuthor().getIdLong(),
+                message.getGuild().getIdLong(),
                 message.getTimeCreated().toLocalDate()
         );
-        entity.ChangeCount();
         repository.save(entity);
     }
 
     private void UpdateMember(BestMemberEntity entity){
-        entity.ChangeCount();
+        entity.UpdateCount();
         repository.save(entity);
     }
 

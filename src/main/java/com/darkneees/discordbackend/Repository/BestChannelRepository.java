@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface BestChannelRepository extends JpaRepository<BestChannelEntity, Long> {
 
-    Optional<BestChannelEntity> getBestChannelEntitiesByGuildIdAndChannelIdAndTimeMessage(long GuildId, long ChannelId, LocalDate date);
+    Optional<BestChannelEntity> getBestChannelEntitiesByChannelIdAndGuildIdAndTimeMessage(long ChannelId, long GuildId, LocalDate date);
 
 }

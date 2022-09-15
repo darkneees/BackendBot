@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface BestMemberRepository extends JpaRepository<BestMemberEntity, Long> {
 
-    Optional<BestMemberEntity> getBestMemberEntitiesByGuildIdAndUserIdAndTimeMessage(long GuildId, long UserId, LocalDate date);
+    Optional<BestMemberEntity> getBestMemberEntitiesByUserIdAndGuildIdAndTimeMessage(long UserId, long GuildId, LocalDate date);
 }

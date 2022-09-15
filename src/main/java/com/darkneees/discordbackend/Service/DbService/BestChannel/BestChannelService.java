@@ -1,7 +1,6 @@
 package com.darkneees.discordbackend.Service.DbService.BestChannel;
 
 import com.darkneees.discordbackend.Entity.BestChannelEntity;
-import com.darkneees.discordbackend.Entity.BestMemberEntity;
 import net.dv8tion.jda.api.entities.Message;
 
 import java.time.LocalDate;
