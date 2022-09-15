@@ -27,6 +27,5 @@ public class GuildMessageSendListener {
         memberService.ChangeCountMessages(event.getMessage());
         channelService.ChangeCountMessages(event.getMessage());
         guildService.addMessageInHour(event.getMessage());
-
     }
 }

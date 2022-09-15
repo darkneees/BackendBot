@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class BestMemberServiceImpl implements BestMemberService {
@@ -23,19 +24,26 @@ public class BestMemberServiceImpl implements BestMemberService {
         return repository.getBestMemberEntitiesByUserIdAndGuildIdAndTimeMessage(UserId, GuildId, date);
     }
 
+    public long getBestMemberByGuildIdAndMaxCount(long guildId) {
+        return repository.getUserIdByGuildIdAndCountMax(guildId);
+    }
+
     @Override
     public void ChangeCountMessages (Message message) {
 
-        Optional<BestMemberEntity> optionalEntity = getBestMemberByIdAndGuildIdAndTime(
-                message.getAuthor().getIdLong(),
-                message.getGuild().getIdLong(),
-                message.getTimeCreated().toLocalDate()
-        );
+        CompletableFuture.runAsync(() -> {
 
-        optionalEntity.ifPresentOrElse(
-                this::UpdateMember,
-                () -> CreateMember(message)
-        );
+            Optional<BestMemberEntity> optionalEntity = getBestMemberByIdAndGuildIdAndTime(
+                    message.getAuthor().getIdLong(),
+                    message.getGuild().getIdLong(),
+                    message.getTimeCreated().toLocalDate()
+            );
+
+            optionalEntity.ifPresentOrElse(
+                            this::UpdateMember,
+                    () -> CreateMember(message)
+            );
+        });
 
     }
 

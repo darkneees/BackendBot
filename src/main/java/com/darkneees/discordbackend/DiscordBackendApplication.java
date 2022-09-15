@@ -33,6 +33,7 @@ public class DiscordBackendApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        this.botService.startBot();
         this.botService.registerListeners(new GuildMessageSendListener(bestMemberService, bestChannelService, guildService));
     }
 }

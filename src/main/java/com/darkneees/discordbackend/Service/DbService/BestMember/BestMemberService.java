@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface BestMemberService {
 
     Optional<BestMemberEntity> getBestMemberByIdAndGuildIdAndTime(long UserId, long GuildId, LocalDate date);
+    long getBestMemberByGuildIdAndMaxCount(long guildId);
     void ChangeCountMessages(Message message);
 }

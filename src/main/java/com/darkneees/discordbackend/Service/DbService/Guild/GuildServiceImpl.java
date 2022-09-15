@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class GuildServiceImpl implements GuildService {
@@ -20,12 +21,14 @@ public class GuildServiceImpl implements GuildService {
     @Override
     public void addMessageInHour(Message message) {
 
-        Optional<GuildEntity> optionalEntity = getGuildById(message.getGuild().getIdLong());
+        CompletableFuture.runAsync(() -> {
+            Optional<GuildEntity> optionalEntity = getGuildById(message.getGuild().getIdLong());
 
-        optionalEntity.ifPresentOrElse(
-                this::UpdateMessages,
-                () -> CreateMessages(message)
-        );
+            optionalEntity.ifPresentOrElse(
+                    this::UpdateMessages,
+                    () -> CreateMessages(message)
+            );
+        });
 
     }
 
