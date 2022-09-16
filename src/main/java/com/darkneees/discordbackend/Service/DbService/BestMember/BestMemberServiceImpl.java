@@ -1,6 +1,7 @@
 package com.darkneees.discordbackend.Service.DbService.BestMember;
 
 import com.darkneees.discordbackend.Entity.BestMemberEntity;
+import com.darkneees.discordbackend.Exception.NoEntityException;
 import com.darkneees.discordbackend.Repository.BestMemberRepository;
 import net.dv8tion.jda.api.entities.Message;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,10 @@ public class BestMemberServiceImpl implements BestMemberService {
         return repository.getBestMemberEntitiesByUserIdAndGuildIdAndTimeMessage(UserId, GuildId, date);
     }
 
-    public long getBestMemberByGuildIdAndMaxCount(long guildId) {
-        return repository.getUserIdByGuildIdAndCountMax(guildId);
+    @Override
+    public Long getBestMemberByGuildIdAndMaxCount(long guildId) throws NoEntityException {
+        System.out.println(repository.getUserIdByGuildIdAndCountMax(guildId));
+        return repository.getUserIdByGuildIdAndCountMax(guildId).orElseThrow(() -> new NoEntityException(String.valueOf(guildId)));
     }
 
     @Override

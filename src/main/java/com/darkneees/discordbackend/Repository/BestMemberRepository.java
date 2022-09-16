@@ -11,8 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface BestMemberRepository extends JpaRepository<BestMemberEntity, Long> {
-
     Optional<BestMemberEntity> getBestMemberEntitiesByUserIdAndGuildIdAndTimeMessage(long UserId, long GuildId, LocalDate date);
-    @Query("select b.userId from BestMemberEntity b where b.guildId=:ids and b.count=(select max(d.count) from BestMemberEntity d)")
-    long getUserIdByGuildIdAndCountMax(@Param("ids") long id);
+    @Query("select b.userId from BestMemberEntity b where b.guildId=:ids and b.timeMessage=current_date and b.count=(select max(b1.count) from BestMemberEntity b1 where b1.timeMessage=current_date and b1.guildId=:ids)")
+    Optional<Long> getUserIdByGuildIdAndCountMax(@Param("ids") long id);
 }

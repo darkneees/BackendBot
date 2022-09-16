@@ -2,6 +2,7 @@ package com.darkneees.discordbackend.Service.DbService.BestChannel;
 
 import com.darkneees.discordbackend.Entity.BestChannelEntity;
 import com.darkneees.discordbackend.Entity.BestMemberEntity;
+import com.darkneees.discordbackend.Exception.NoEntityException;
 import com.darkneees.discordbackend.Repository.BestChannelRepository;
 import net.dv8tion.jda.api.entities.Message;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,11 @@ public class BestChannelServiceImpl implements BestChannelService {
     @Override
     public Optional<BestChannelEntity> getBestChannelByIdAndGuildIdAndTime(long ChannelId, long GuildId, LocalDate date) {
         return repository.getBestChannelEntitiesByChannelIdAndGuildIdAndTimeMessage(ChannelId, GuildId, date);
+    }
+
+    @Override
+    public Long getBestChannelByGuildIdAndMaxCount(long guildId) throws NoEntityException {
+        return repository.getChannelIdByGuildIdAndCountMax(guildId).orElseThrow(() -> new NoEntityException(String.valueOf(guildId)));
     }
 
     @Override

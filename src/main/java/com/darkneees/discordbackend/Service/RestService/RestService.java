@@ -1,10 +1,12 @@
 package com.darkneees.discordbackend.Service.RestService;
 
-import com.darkneees.discordbackend.Entity.BestMemberEntity;
+import com.darkneees.discordbackend.Exception.NoEntityException;
 import com.darkneees.discordbackend.Service.Bot.BotServiceImpl;
 import com.darkneees.discordbackend.Service.DbService.BestChannel.BestChannelServiceImpl;
 import com.darkneees.discordbackend.Service.DbService.BestMember.BestMemberServiceImpl;
 import com.darkneees.discordbackend.Service.DbService.Guild.GuildServiceImpl;
+import net.dv8tion.jda.api.entities.Channel;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -47,16 +48,61 @@ public class RestService {
     @Async
     public CompletableFuture<HashMap<String, String>> getBestMember(long id) {
         return CompletableFuture.supplyAsync(() -> {
+            try {
+                HashMap<String, String> bestMemberInfo = new HashMap<>();
 
-            HashMap<String, String> bestMemberInfo = new HashMap<>();
-            long userId = bestMemberService.getBestMemberByGuildIdAndMaxCount(id); // Optional
-            if(userId != 0) {
+                long userId = bestMemberService.getBestMemberByGuildIdAndMaxCount(id);
                 User user = botService.getJDA().retrieveUserById(userId).complete();
                 bestMemberInfo.put("id", user.getId());
                 bestMemberInfo.put("name", user.getName());
                 bestMemberInfo.put("avatar", user.getAvatarUrl());
+
+                return bestMemberInfo;
+
+            } catch (NoEntityException e) {
+
+                throw new RuntimeException(e);
             }
-            return bestMemberInfo;
+        });
+    }
+
+    @Async
+    public CompletableFuture<HashMap<String, String>> getBestChannel(long id) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                long channelId = bestChannelService.getBestChannelByGuildIdAndMaxCount(id);
+
+                HashMap<String, String> bestChannelInfo = new HashMap<>();
+                Channel channel = botService.getJDA().getTextChannelById(channelId);
+                bestChannelInfo.put("id", channel.getId());
+                bestChannelInfo.put("name", channel.getName());
+
+                return bestChannelInfo;
+            } catch (NoEntityException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+    }
+
+    @Async
+    public CompletableFuture<HashMap<String, String>> getMessagesInHour(long id) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                long count = guildService.getCountByGuildId(id);
+                HashMap<String, String> messageInHour = new HashMap<>();
+
+                Guild guild = botService.getJDA().getGuildById(id);
+
+                messageInHour.put("count", String.valueOf(count));
+                messageInHour.put("id", guild.getId());
+                messageInHour.put("name", guild.getName());
+
+            return messageInHour;
+
+            } catch (NoEntityException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 }

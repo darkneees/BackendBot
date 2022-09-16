@@ -1,6 +1,5 @@
 package com.darkneees.discordbackend.Controller;
 
-import com.darkneees.discordbackend.Service.Bot.BotServiceImpl;
 import com.darkneees.discordbackend.Service.RestService.RestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,24 +29,23 @@ public class BotController {
     }
 
     @RequestMapping("/guild/{id}/bestmember")
-    public CompletableFuture<ResponseEntity>getBestUser(@PathVariable("id") long id)  {
+    public CompletableFuture<ResponseEntity> getBestUser(@PathVariable("id") long id)  {
         return restService.getBestMember(id).<ResponseEntity>thenApply(ResponseEntity::ok)
                 .exceptionally(handleGetGuildsFailure);
     }
 
     @RequestMapping("/guild/{id}/bestchannel")
-    public ResponseEntity<?> getActiveChannel(@PathVariable ("id") String id) {
-        return null;
+    public CompletableFuture<ResponseEntity> getActiveChannel(@PathVariable ("id") long id) {
+        return restService.getBestChannel(id).<ResponseEntity>thenApply(ResponseEntity::ok)
+                .exceptionally(handleGetGuildsFailure);
     }
 
     @RequestMapping("/guild/{id}/messagesinhour")
-    public ResponseEntity<?> getCountMessageInHour(@PathVariable("id") String id) {
-        return null;
+    public CompletableFuture<ResponseEntity> getCountMessageInHour(@PathVariable("id") long id) {
+        return restService.getMessagesInHour(id).<ResponseEntity>thenApply(ResponseEntity::ok)
+                .exceptionally(handleGetGuildsFailure);
     }
 
     private static final Function<Throwable, ResponseEntity<? extends List<HashMap<String, String>>>>
-            handleGetGuildsFailure = throwable -> {
-        System.out.println(throwable.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    };
+            handleGetGuildsFailure = throwable -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 }
