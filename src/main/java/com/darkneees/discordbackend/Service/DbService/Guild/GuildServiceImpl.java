@@ -36,8 +36,12 @@ public class GuildServiceImpl implements GuildService {
     }
     private void UpdateMessages(GuildEntity guildEntity) {
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of(botConfiguration.getTimeZone()));
-        if(guildEntity.getTimeMessage().toLocalDate() != now.toLocalDate() &&
-                now.getHour() - guildEntity.getTimeMessage().getHour() >= 1) {
+        if(!guildEntity
+                .getTimeMessage()
+                .toLocalDate().isEqual(now.toLocalDate()) ||
+                now.getHour() - guildEntity
+                        .getTimeMessage()
+                        .getHour() >= 1) {
             guildEntity.setTimeMessage(now);
             guildEntity.setCount(1);
         } else guildEntity.UpdateCount();

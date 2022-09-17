@@ -37,21 +37,7 @@ public class BestMemberServiceImpl implements BestMemberService {
     @Override
     public void ChangeCountMessages (Message message) {
 
-        System.out.println("bestmember");
-        System.out.println(message.getTimeCreated());
-        System.out.println(message.getTimeCreated()
-                .toZonedDateTime()
-                .withZoneSameInstant(ZoneId.of(botConfiguration.getTimeZone()))
-                .toLocalDate());
-
-
         CompletableFuture.runAsync(() -> {
-
-            System.out.println("bestmember");
-            System.out.println(message.getTimeCreated()
-                    .toZonedDateTime()
-                    .withZoneSameInstant(ZoneId.of(botConfiguration.getTimeZone()))
-                    .toLocalDate());
 
             Optional<BestMemberEntity> optionalEntity = getBestMemberByIdAndGuildIdAndTime(
                     message.getAuthor().getIdLong(),
