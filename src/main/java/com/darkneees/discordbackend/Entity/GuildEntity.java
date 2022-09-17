@@ -54,4 +54,12 @@ public class GuildEntity {
     public void UpdateCount(){
         ++count;
     }
+
+    @Override
+    public String toString() {
+        return "GuildEntity{" +
+                ", timeMessage=" + timeMessage +
+                ", count=" + count +
+                '}';
+    }
 }

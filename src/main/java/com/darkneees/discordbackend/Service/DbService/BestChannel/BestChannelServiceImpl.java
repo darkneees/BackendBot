@@ -1,13 +1,14 @@
 package com.darkneees.discordbackend.Service.DbService.BestChannel;
 
+import com.darkneees.discordbackend.Configuration.BotConfiguration;
 import com.darkneees.discordbackend.Entity.BestChannelEntity;
-import com.darkneees.discordbackend.Entity.BestMemberEntity;
 import com.darkneees.discordbackend.Exception.NoEntityException;
 import com.darkneees.discordbackend.Repository.BestChannelRepository;
 import net.dv8tion.jda.api.entities.Message;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -15,9 +16,11 @@ import java.util.concurrent.CompletableFuture;
 public class BestChannelServiceImpl implements BestChannelService {
 
     private final BestChannelRepository repository;
+    private final BotConfiguration botConfiguration;
 
-    public BestChannelServiceImpl(BestChannelRepository repository) {
+    public BestChannelServiceImpl(BestChannelRepository repository, BotConfiguration botConfiguration) {
         this.repository = repository;
+        this.botConfiguration = botConfiguration;
     }
 
     @Override
@@ -37,7 +40,10 @@ public class BestChannelServiceImpl implements BestChannelService {
             Optional<BestChannelEntity> optionalEntity = getBestChannelByIdAndGuildIdAndTime(
                     message.getChannel().getIdLong(),
                     message.getGuild().getIdLong(),
-                    message.getTimeCreated().toLocalDate()
+                    message.getTimeCreated()
+                            .toZonedDateTime()
+                            .withZoneSameInstant(ZoneId.of(botConfiguration.getTimeZone()))
+                            .toLocalDate()
             );
 
             optionalEntity.ifPresentOrElse(
@@ -52,7 +58,10 @@ public class BestChannelServiceImpl implements BestChannelService {
         BestChannelEntity entity = new BestChannelEntity(
                 message.getChannel().getIdLong(),
                 message.getGuild().getIdLong(),
-                message.getTimeCreated().toZonedDateTime().toLocalDate()
+                message.getTimeCreated()
+                        .toZonedDateTime()
+                        .withZoneSameInstant(ZoneId.of(botConfiguration.getTimeZone()))
+                        .toLocalDate()
         );
         repository.save(entity);
     }

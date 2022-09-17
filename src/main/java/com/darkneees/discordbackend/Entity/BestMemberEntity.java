@@ -11,11 +11,11 @@ import java.time.LocalDate;
 public class BestMemberEntity {
 
     @Id
-    @Column(name = "UserId")
-    private long userId;
-
     @Column(name = "GuildId")
     private long guildId;
+
+    @Column(name = "UserId")
+    private long userId;
 
     @Column(name = "time_message")
     private LocalDate timeMessage;

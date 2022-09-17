@@ -1,12 +1,12 @@
 package com.darkneees.discordbackend.Service.DbService.Guild;
 
+import com.darkneees.discordbackend.Configuration.BotConfiguration;
 import com.darkneees.discordbackend.Entity.GuildEntity;
 import com.darkneees.discordbackend.Exception.NoEntityException;
 import com.darkneees.discordbackend.Repository.GuildRepository;
 import net.dv8tion.jda.api.entities.Message;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Optional;
@@ -16,9 +16,11 @@ import java.util.concurrent.CompletableFuture;
 public class GuildServiceImpl implements GuildService {
 
     private final GuildRepository repository;
+    private final BotConfiguration botConfiguration;
 
-    public GuildServiceImpl(GuildRepository repository) {
+    public GuildServiceImpl(GuildRepository repository, BotConfiguration botConfiguration) {
         this.repository = repository;
+        this.botConfiguration = botConfiguration;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class GuildServiceImpl implements GuildService {
         });
     }
     private void UpdateMessages(GuildEntity guildEntity) {
-        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("GMT+4"));
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of(botConfiguration.getTimeZone()));
         if(guildEntity.getTimeMessage().toLocalDate() != now.toLocalDate() &&
                 now.getHour() - guildEntity.getTimeMessage().getHour() >= 1) {
             guildEntity.setTimeMessage(now);
@@ -45,7 +47,7 @@ public class GuildServiceImpl implements GuildService {
     private void CreateMessages(Message message){
         GuildEntity entity = new GuildEntity(
                 message.getGuild().getIdLong(),
-                message.getTimeCreated().toZonedDateTime()
+                message.getTimeCreated().toZonedDateTime().withZoneSameInstant(ZoneId.of(botConfiguration.getTimeZone()))
         );
         repository.save(entity);
     }

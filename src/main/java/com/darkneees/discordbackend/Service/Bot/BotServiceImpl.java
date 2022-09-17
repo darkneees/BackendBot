@@ -39,6 +39,7 @@ public class BotServiceImpl implements BotService {
                             GatewayIntent.DIRECT_MESSAGES,
                             GatewayIntent.MESSAGE_CONTENT)
                     .setEventManager(new AnnotatedEventManager()).build();
+            System.out.println(botConfiguration.getTimeZone());
         } catch (LoginException e) {
             throw new RuntimeException(e);
         }
