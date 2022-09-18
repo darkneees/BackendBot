@@ -1,6 +1,7 @@
 package com.darkneees.discordbackend.Controller;
 
 import com.darkneees.discordbackend.Service.RestService.RestService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -1,7 +1,7 @@
 package com.darkneees.discordbackend;
 
 import com.darkneees.discordbackend.Listener.GuildMessageSendListener;
-import com.darkneees.discordbackend.Service.Bot.BotService;
+import com.darkneees.discordbackend.Service.Bot.BotServiceImpl;
 import com.darkneees.discordbackend.Service.DbService.BestChannel.BestChannelServiceImpl;
 import com.darkneees.discordbackend.Service.DbService.BestMember.BestMemberServiceImpl;
 import com.darkneees.discordbackend.Service.DbService.Guild.GuildServiceImpl;
@@ -12,12 +12,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class DiscordBackendApplication implements CommandLineRunner {
 
-    private final BotService botService;
+    private final BotServiceImpl botService;
     private final BestMemberServiceImpl bestMemberService;
     private final BestChannelServiceImpl bestChannelService;
     private final GuildServiceImpl guildService;
 
-    public DiscordBackendApplication(BotService botService,
+    public DiscordBackendApplication(BotServiceImpl botService,
                                      BestMemberServiceImpl bestMemberService,
                                      BestChannelServiceImpl bestChannelService,
                                      GuildServiceImpl guildService) {

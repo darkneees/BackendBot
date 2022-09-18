@@ -1,6 +1,7 @@
 package com.darkneees.discordbackend.Service.RestService;
 
 import com.darkneees.discordbackend.Exception.NoEntityException;
+import com.darkneees.discordbackend.Service.Bot.BotService;
 import com.darkneees.discordbackend.Service.Bot.BotServiceImpl;
 import com.darkneees.discordbackend.Service.DbService.BestChannel.BestChannelServiceImpl;
 import com.darkneees.discordbackend.Service.DbService.BestMember.BestMemberServiceImpl;
