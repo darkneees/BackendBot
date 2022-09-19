@@ -1,0 +1,30 @@
+version: '3'
+services:
+
+  backend-server-bot:
+    build: ./
+    container_name: backend-server-bot
+    ports:
+      - 8080:8080
+    environment:
+      - BOT_TOKEN=***
+      - DATABASE_URL=jdbc:mariadb://database-bot:3306/DiscordDb?useUnicode=yes&charset=utf8mb4
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=root
+      - TZ=UTC
+
+
+  database-bot:
+    image: 'yobasystems/alpine-mariadb:10'
+    container_name: database-bot
+    environment:
+      - MYSQL_DATABASE=DiscordDb
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=UTC
+    ports:
+      - 3306:3306
+    volumes:
+      - ./init.sql:/data/application/init.sql
+    command: --init-file /data/application/init.sql

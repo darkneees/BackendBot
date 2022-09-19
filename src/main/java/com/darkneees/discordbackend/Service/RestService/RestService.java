@@ -90,6 +90,7 @@ public class RestService {
     public CompletableFuture<HashMap<String, String>> getMessagesInHour(long id) {
         return CompletableFuture.supplyAsync(() -> {
             try {
+
                 long count = guildService.getCountByGuildId(id);
                 HashMap<String, String> messageInHour = new HashMap<>();
 

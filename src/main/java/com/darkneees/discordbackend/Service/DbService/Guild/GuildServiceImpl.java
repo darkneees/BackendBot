@@ -41,7 +41,7 @@ public class GuildServiceImpl implements GuildService {
                 .toLocalDate().isEqual(now.toLocalDate()) ||
                 now.getHour() - guildEntity
                         .getTimeMessage()
-                        .getHour() >= 1) {
+                        .getHour() != 0) {
             guildEntity.setTimeMessage(now);
             guildEntity.setCount(1);
         } else guildEntity.UpdateCount();

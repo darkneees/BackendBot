@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface GuildRepository extends JpaRepository<GuildEntity, Long> {
-    @Query("select g.count from GuildEntity g where g.timeMessage>= 'CURDATE()' and hour(g.timeMessage)=hour(current_timestamp)")
-    Optional<Long> getCountByGuildId(@Param("guildId") long guildId);
+    @Query("select g.count from GuildEntity g where g.id=:ids and date(g.timeMessage)=current_date and hour(g.timeMessage)=hour(current_timestamp)")
+    Optional<Long> getCountByGuildId(@Param("ids") long guildId);
 }
