@@ -1,4 +1,4 @@
-package com.darkneees.discordbackend.service.DbService.Guild;
+package com.darkneees.discordbackend.service.dbservice.guild;
 
 import com.darkneees.discordbackend.entity.GuildEntity;
 import com.darkneees.discordbackend.exception.NoEntityException;

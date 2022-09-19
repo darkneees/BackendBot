@@ -1,4 +1,4 @@
-package com.darkneees.discordbackend.service.DbService.Guild;
+package com.darkneees.discordbackend.service.dbservice.guild;
 
 import com.darkneees.discordbackend.configuration.BotConfiguration;
 import com.darkneees.discordbackend.entity.GuildEntity;
@@ -29,12 +29,12 @@ public class GuildServiceImpl implements GuildService {
         CompletableFuture.runAsync(() -> {
             Optional<GuildEntity> optionalEntity = getGuildById(message.getGuild().getIdLong());
             optionalEntity.ifPresentOrElse(
-                    this::UpdateMessages,
-                    () -> CreateMessages(message)
+                    this::updateMessages,
+                    () -> createMessages(message)
             );
         });
     }
-    private void UpdateMessages(GuildEntity guildEntity) {
+    private void updateMessages(GuildEntity guildEntity) {
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of(botConfiguration.getTimeZone()));
         if(!guildEntity
                 .getTimeMessage()
@@ -48,7 +48,7 @@ public class GuildServiceImpl implements GuildService {
         repository.save(guildEntity);
     }
 
-    private void CreateMessages(Message message){
+    private void createMessages(Message message){
         GuildEntity entity = new GuildEntity(
                 message.getGuild().getIdLong(),
                 message.getTimeCreated().toZonedDateTime().withZoneSameInstant(ZoneId.of(botConfiguration.getTimeZone()))

@@ -1,4 +1,4 @@
-package com.darkneees.discordbackend.service.Bot;
+package com.darkneees.discordbackend.service.bot;
 
 import net.dv8tion.jda.api.JDA;
 

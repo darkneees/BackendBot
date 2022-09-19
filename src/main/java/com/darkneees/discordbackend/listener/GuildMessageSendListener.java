@@ -1,8 +1,8 @@
 package com.darkneees.discordbackend.listener;
 
-import com.darkneees.discordbackend.service.DbService.BestChannel.BestChannelServiceImpl;
-import com.darkneees.discordbackend.service.DbService.BestMember.BestMemberServiceImpl;
-import com.darkneees.discordbackend.service.DbService.Guild.GuildServiceImpl;
+import com.darkneees.discordbackend.service.dbservice.bestchannel.BestChannelServiceImpl;
+import com.darkneees.discordbackend.service.dbservice.bestmember.BestMemberServiceImpl;
+import com.darkneees.discordbackend.service.dbservice.guild.GuildServiceImpl;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.SubscribeEvent;
 import org.springframework.stereotype.Component;

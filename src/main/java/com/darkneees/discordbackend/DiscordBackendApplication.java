@@ -1,10 +1,10 @@
 package com.darkneees.discordbackend;
 
 import com.darkneees.discordbackend.listener.GuildMessageSendListener;
-import com.darkneees.discordbackend.service.Bot.BotServiceImpl;
-import com.darkneees.discordbackend.service.DbService.BestChannel.BestChannelServiceImpl;
-import com.darkneees.discordbackend.service.DbService.BestMember.BestMemberServiceImpl;
-import com.darkneees.discordbackend.service.DbService.Guild.GuildServiceImpl;
+import com.darkneees.discordbackend.service.bot.BotServiceImpl;
+import com.darkneees.discordbackend.service.dbservice.bestchannel.BestChannelServiceImpl;
+import com.darkneees.discordbackend.service.dbservice.bestmember.BestMemberServiceImpl;
+import com.darkneees.discordbackend.service.dbservice.guild.GuildServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

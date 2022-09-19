@@ -1,7 +1,7 @@
 package com.darkneees.discordbackend.configuration;
 
-import com.darkneees.discordbackend.service.Bot.BotService;
-import com.darkneees.discordbackend.service.Bot.BotServiceImpl;
+import com.darkneees.discordbackend.service.bot.BotService;
+import com.darkneees.discordbackend.service.bot.BotServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

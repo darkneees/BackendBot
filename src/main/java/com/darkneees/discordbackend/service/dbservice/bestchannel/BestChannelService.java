@@ -1,4 +1,4 @@
-package com.darkneees.discordbackend.service.DbService.BestChannel;
+package com.darkneees.discordbackend.service.dbservice.bestchannel;
 
 import com.darkneees.discordbackend.entity.BestChannelEntity;
 import com.darkneees.discordbackend.exception.NoEntityException;

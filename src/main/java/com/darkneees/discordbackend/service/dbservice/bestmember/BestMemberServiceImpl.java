@@ -1,4 +1,4 @@
-package com.darkneees.discordbackend.service.DbService.BestMember;
+package com.darkneees.discordbackend.service.dbservice.bestmember;
 
 import com.darkneees.discordbackend.configuration.BotConfiguration;
 import com.darkneees.discordbackend.entity.BestMemberEntity;
@@ -49,14 +49,14 @@ public class BestMemberServiceImpl implements BestMemberService {
             );
 
             optionalEntity.ifPresentOrElse(
-                            this::UpdateMember,
-                    () -> CreateMember(message)
+                            this::updateMember,
+                    () -> createMember(message)
             );
         });
 
     }
 
-    private void CreateMember(Message message){
+    private void createMember(Message message){
 
         BestMemberEntity entity = new BestMemberEntity(
                 message.getAuthor().getIdLong(),
@@ -69,7 +69,7 @@ public class BestMemberServiceImpl implements BestMemberService {
         repository.save(entity);
     }
 
-    private void UpdateMember(BestMemberEntity entity){
+    private void updateMember(BestMemberEntity entity){
         entity.UpdateCount();
         repository.save(entity);
     }

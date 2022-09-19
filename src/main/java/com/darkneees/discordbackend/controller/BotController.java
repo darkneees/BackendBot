@@ -1,6 +1,6 @@
 package com.darkneees.discordbackend.controller;
 
-import com.darkneees.discordbackend.service.RestService.RestBotService;
+import com.darkneees.discordbackend.service.restservice.RestBotService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

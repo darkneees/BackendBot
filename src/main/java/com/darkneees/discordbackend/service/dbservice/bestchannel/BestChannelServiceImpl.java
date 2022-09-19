@@ -1,4 +1,4 @@
-package com.darkneees.discordbackend.service.DbService.BestChannel;
+package com.darkneees.discordbackend.service.dbservice.bestchannel;
 
 import com.darkneees.discordbackend.configuration.BotConfiguration;
 import com.darkneees.discordbackend.entity.BestChannelEntity;
@@ -47,13 +47,13 @@ public class BestChannelServiceImpl implements BestChannelService {
             );
 
             optionalEntity.ifPresentOrElse(
-                    this::UpdateChannel,
-                    () -> CreateChannel(message)
+                    this::updateChannel,
+                    () -> createChannel(message)
             );
         });
     }
 
-    private void CreateChannel(Message message){
+    private void createChannel(Message message){
 
         BestChannelEntity entity = new BestChannelEntity(
                 message.getChannel().getIdLong(),
@@ -66,7 +66,7 @@ public class BestChannelServiceImpl implements BestChannelService {
         repository.save(entity);
     }
 
-    private void UpdateChannel(BestChannelEntity entity){
+    private void updateChannel(BestChannelEntity entity){
         entity.UpdateCount();
         repository.save(entity);
     }

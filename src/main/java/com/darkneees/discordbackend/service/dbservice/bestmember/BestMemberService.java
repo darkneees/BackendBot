@@ -1,4 +1,4 @@
-package com.darkneees.discordbackend.service.DbService.BestMember;
+package com.darkneees.discordbackend.service.dbservice.bestmember;
 
 import com.darkneees.discordbackend.entity.BestMemberEntity;
 import com.darkneees.discordbackend.exception.NoEntityException;
